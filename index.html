@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoorentPm - Partnership Agenzie Immobiliari</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+
+    <style>
+        /* --- Palette Colori --- */
+        :root {
+            --primary: #f3dfd9;      /* Rosa pallido */
+            --primary-dark: #e4c8c0; /* Rosa più scuro */
+            --secondary: #aca5a5;    /* Grigio elegante */
+            --secondary-dark: #938d8d;/* Grigio più scuro */
+            --accent: #232323;       /* Nero/Grigio scurissimo */
+            --accent-light: #464646; /* Grigio scuro */
+            --success: #10b981;      /* Verde */
+            --warning: #f59e0b;      /* Giallo/Ambra */
+            --danger: #ef4444;       /* Rosso */
+            --dark: #232323;         /* Alias per accent */
+            --light: #f8fafc;       /* Grigio chiarissimo */
+            --white: #ffffff;
+            --nav-height: 65px;
+        }
+
+        /* --- Impostazioni Base --- */
+        html { scroll-behavior: smooth; scroll-padding-top: var(--nav-height); }
+        body { font-family: 'Poppins', sans-serif; color: var(--dark); background-color: var(--white); overflow-x: hidden; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Montserrat', sans-serif; font-weight: 700; color: var(--accent); letter-spacing: -0.02em; }
+        section { padding: 4rem 1rem; overflow: hidden; position: relative; }
+        @media (min-width: 768px) { section { padding: 6rem 2rem; } }
+        @media (min-width: 1024px) { section { padding: 8rem 2rem; } }
+        .container-lg { max-width: 1200px; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; }
+
+        /* --- Tema Scuro --- */
+        .dark-section { background-color: var(--accent); color: var(--light); }
+        .dark-section h1, .dark-section h2, .dark-section h3, .dark-section h4 { color: var(--white); }
+        .dark-section .section-subtitle, .dark-section p, .dark-section li { color: var(--gray); }
+        .dark-section .custom-card { background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--light); }
+        .dark-section .custom-card h3, .dark-section .custom-card h4 { color: var(--white); }
+        .dark-section .custom-card p, .dark-section .custom-card li { color: var(--gray); }
+        .dark-section .styled-list li i { color: var(--primary); background-color: rgba(243, 223, 217, 0.1); }
+        .dark-section .text-primary { color: var(--primary) !important; }
+        .dark-section .text-accent { color: var(--white) !important; }
+        .dark-section .hoverable-card:hover { box-shadow: 0 25px 50px rgba(255, 255, 255, 0.08); }
+
+        /* --- Barra Navigazione --- */
+        #main-nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background-color: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); padding: 0.75rem 0; height: var(--nav-height); transition: transform 0.3s ease-in-out; border-bottom: 1px solid rgba(0, 0, 0, 0.05); transform: translateY(0); }
+        #main-nav.nav-hidden { transform: translateY(-100%); }
+        #main-nav .nav-container { display: flex; justify-content: space-between; align-items: center; width: 100%; height: 100%; max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+        #main-nav .logo { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.4rem; color: var(--accent); transition: color 0.3s; flex-shrink: 0; }
+        #main-nav .logo:hover { color: var(--primary-dark); }
+        .desktop-nav a { color: var(--accent-light); font-weight: 500; padding: 0.5rem 0.8rem; margin: 0 0.15rem; border-radius: 999px; transition: color 0.3s ease, background-color 0.3s ease; position: relative; overflow: hidden; font-size: 0.85rem; text-align: center; white-space: nowrap; }
+        .desktop-nav a:hover { color: var(--dark); background-color: rgba(0, 0, 0, 0.05); }
+        .desktop-nav a.active { color: var(--dark); font-weight: 600; background-color: var(--primary); }
+        
+        /* --- Barra Progresso --- */
+        #scroll-progress-bar { position: fixed; top: 0; left: 0; height: 4px; background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%); width: 0%; z-index: 1001; transition: width 0.05s linear; }
+
+        /* --- Elementi Comuni & Tipografia Mobile --- */
+        .section-title { font-size: 2rem; font-weight: 800; margin-bottom: 1rem; text-align: center; line-height: 1.2; }
+        .section-subtitle { font-size: 1rem; color: var(--secondary-dark); text-align: center; max-width: 750px; margin: 0 auto 3rem auto; font-weight: 400; line-height: 1.7; }
+        @media (min-width: 768px) { .section-title { font-size: 3.2rem; margin-bottom: 1.5rem;} .section-subtitle { font-size: 1.3rem; margin-bottom: 4rem;} }
+        .dark-section .section-subtitle { color: var(--gray); }
+        
+        .hoverable-card { transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        .hoverable-card:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1); }
+        .dark-section .hoverable-card:hover { box-shadow: 0 25px 50px rgba(255, 255, 255, 0.08); }
+
+        .custom-card { background-color: var(--white); border-radius: 1.25rem; padding: 2rem; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05); border: 1px solid rgba(0, 0, 0, 0.07); display: flex; flex-direction: column; }
+
+        .styled-list li { position: relative; padding-left: 2.2rem; margin-bottom: 1.25rem; font-size: 1.05rem; line-height: 1.6; }
+        .styled-list li i { position: absolute; left: 0; top: 6px; color: var(--primary); font-size: 1.1rem; background-color: rgba(243, 223, 217, 0.15); width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; }
+        .dark-section .styled-list li i { background-color: rgba(243, 223, 217, 0.1); }
+
+        .btn { display: inline-block; padding: 0.9rem 2.2rem; border-radius: 999px; font-weight: 600; text-align: center; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); cursor: pointer; border: none; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); position: relative; overflow: hidden; font-size: 1rem; }
+        .btn:hover { transform: translateY(-4px) scale(1.03); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18); }
+        .btn-primary { background: var(--primary); color: var(--dark); }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn-accent { background: var(--accent); color: var(--white); }
+        .btn-accent:hover { background: var(--accent-light); }
+        .btn-secondary { background: var(--secondary); color: var(--white); }
+        .btn-secondary:hover { background: var(--secondary-dark); }
+        .btn i { margin-right: 0.6rem; }
+
+        /* --- Animazioni --- */
+        .animate-on-scroll { opacity: 0; transition: opacity 0.9s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.9s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .fade-in-up { transform: translateY(50px); }
+        .fade-in-left { transform: translateX(-50px); }
+        .fade-in-right { transform: translateX(50px); }
+        .scale-in { transform: scale(0.9); }
+        .is-visible { opacity: 1; transform: none; }
+        .delay-100 { transition-delay: 0.1s !important; } .delay-200 { transition-delay: 0.2s !important; } .delay-300 { transition-delay: 0.3s !important; } .delay-400 { transition-delay: 0.4s !important; } .delay-500 { transition-delay: 0.5s !important; } .delay-600 { transition-delay: 0.6s !important; } .delay-700 { transition-delay: 0.7s !important; }
+
+        /* --- Stili Specifici Sezioni --- */
+        /* Hero */
+        #hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding-top: var(--nav-height); background: var(--accent); color: var(--white); position: relative; }
+        #hero h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 1.5rem; color: var(--white); line-height: 1.3; }
+        #hero .subtitle { font-size: 1.1rem; font-weight: 400; color: var(--primary); margin-bottom: 3rem; max-width: 650px; margin-left: auto; margin-right: auto; line-height: 1.8; }
+        @media (min-width: 768px) { #hero h1 { font-size: 4rem; } #hero .subtitle { font-size: 1.5rem; } }
+        #hero .scroll-down-indicator { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); opacity: 0; animation: fadeIn 1s 1.8s forwards, bounce 2.5s infinite 2.8s; color: var(--primary); font-size: 1.8rem; }
+
+        /* Problema */
+        #problema { background-color: var(--white); }
+        #problema .problem-card { text-align: center; padding: 2rem; border-radius: 1rem; background-color: #fff7f7; border: 1px solid var(--danger); }
+        #problema .problem-icon { font-size: 2.5rem; color: var(--danger); margin-bottom: 1rem; display: inline-block; }
+        #problema h3 { color: var(--danger); font-size: 1.25rem; margin-bottom: 0.5rem;}
+        #problema p { color: var(--accent-light); font-size: 0.95rem;}
+
+        /* Valori e Pilastri */
+        #valori-pilastri { background-color: var(--accent); }
+        #valori-pilastri .vp-card { text-align: center; height: 100%; background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 1rem; }
+        #valori-pilastri .vp-icon { font-size: 2.5rem; color: var(--primary); margin-bottom: 1.5rem; display: inline-block; }
+        #valori-pilastri .vp-title { font-size: 1.2rem; font-weight: 600; color: var(--white); margin-bottom: 0.75rem; }
+        #valori-pilastri .vp-description { font-size: 0.9rem; color: var(--gray); line-height: 1.6; }
+
+        /* Come Funziona (Servizi) */
+        #come-funziona { background-color: var(--white); }
+        .service-tabs button { padding: 0.75rem 1.5rem; border-radius: 999px; font-weight: 600; transition: all 0.3s ease; border: 2px solid var(--primary); color: var(--primary-dark); background-color: transparent; }
+        .service-tabs button:hover { background-color: rgba(243, 223, 217, 0.1); color: var(--dark); }
+        .service-tabs button.active { background-color: var(--primary); color: var(--dark); border-color: var(--primary); }
+        .service-content { display: none; animation: fadeIn 0.6s ease; }
+        .service-content.active { display: block; }
+        .service-content h3 { margin-bottom: 0.5rem; font-size: 1.8rem; font-weight: 700; }
+        .service-content .service-subtitle { text-align: center; font-size: 1rem; font-weight: 500; color: var(--accent); margin-bottom: 2rem; }
+        .service-content .service-point { background-color: #f9fafb; padding: 1.25rem; border-radius: 0.75rem; border: 1px solid #e5e7eb; margin-bottom: 1rem; }
+        .service-content .service-point h4 { color: var(--accent); font-size: 1.1rem; margin-bottom: 0.25rem; display: flex; align-items: center; gap: 0.5rem; font-weight: 600; }
+        .service-content .service-point h4 i { color: var(--primary); }
+        .service-content .service-point p { font-size: 0.95rem; color: var(--secondary-dark); line-height: 1.6; }
+
+        /* Perché Sceglierci */
+        #perche-noi { background-color: var(--accent); }
+        .differentiator-item { display: flex; align-items: flex-start; gap: 1.5rem; margin-bottom: 2.5rem; }
+        .differentiator-icon { flex-shrink: 0; font-size: 1.8rem; color: var(--primary); margin-top: 5px; width: 40px; text-align: center; }
+        .differentiator-title { font-weight: 600; font-size: 1.2rem; color: var(--white); margin-bottom: 0.5rem; }
+        .differentiator-text { font-size: 1rem; color: var(--gray); line-height: 1.7; }
+
+        /* Risultati e Fiducia */
+        #risultati { background-color: var(--light); }
+        #caseStudyChartContainer { position: relative; height: 300px; margin-top: 1.5rem; }
+        @media (min-width: 768px) { #caseStudyChartContainer { height: 350px; } }
+        .satisfaction-score { font-size: 3.5rem; font-weight: 800; color: var(--primary); line-height: 1; }
+        @media (min-width: 768px) { .satisfaction-score { font-size: 4rem; } }
+        .kpi-card { text-align: center; }
+        .kpi-card p:last-child { font-size: 0.9rem; color: var(--secondary-dark); }
+        .feedback-box { background-color: var(--white); padding: 2rem; border-radius: 1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 1px solid #eee;}
+        .feedback-box h4 { color: var(--accent); margin-bottom: 1rem; }
+        .feedback-box ul li { list-style: disc; margin-left: 1.5rem; margin-bottom: 0.5rem; color: var(--secondary-dark); font-size: 0.95rem;}
+        
+
+        /* L'Immobile Ideale */
+        #immobile-ideale { background-color: var(--white); }
+        #immobile-ideale .ideal-property-card { border-left: 4px solid var(--primary); padding: 2rem; background-color: #f9fafb; border-radius: 0 0.75rem 0.75rem 0;}
+        #immobile-ideale .ideal-property-card h3 { color: var(--accent); font-size: 1.7rem; margin-bottom: 1.5rem;}
+        #immobile-ideale .ideal-property-list li { margin-bottom: 0.8rem; padding-left: 1.8rem; font-size: 1rem; color: var(--secondary-dark); position: relative; }
+        #immobile-ideale .ideal-property-list li::before { content: "✓"; position: absolute; left: 0; color: var(--success); font-weight: 900; font-size: 1.1rem; top: 2px;}
+        #immobile-ideale .ideal-property-list strong { font-weight: 600; color: var(--dark); }
+
+
+        /* Offerta e Fiscalità */
+        #offerta { background-color: var(--gray-50); }
+        .offer-card { border-left-width: 5px; padding: 2.5rem; border-radius: 0 1rem 1rem 0; background-color: var(--white); display: flex; flex-direction: column; } /* Rimosso height:100% */
+        .offer-card h3 { margin-bottom: 0.25rem; font-size: 1.5rem; font-weight: 700; }
+        .offer-card .offer-subtitle { font-size: 1rem; color: var(--secondary-dark); margin-bottom: 1rem; font-weight: 500; }
+        .offer-card .price { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.25rem; color: var(--accent);}
+        @media (min-width: 768px) { .offer-card .price { font-size: 2.8rem; } }
+        .offer-card .price-note { font-size: 0.85rem; color: var(--secondary-dark); margin-bottom: 1.5rem;}
+        .offer-card-standard { border-color: var(--primary); }
+        .offer-card .includes-title { font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.75rem; color: var(--accent); font-size: 1.05rem;}
+        .offer-card ul { list-style: none; padding: 0; margin-bottom: 1.5rem; }
+        .offer-card ul li { position: relative; padding-left: 1.8rem; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--secondary-dark);}
+        .offer-card ul li::before { content: "✓"; position: absolute; left: 0; font-weight: 900; }
+        .offer-card-standard ul li::before { color: var(--primary); }
+        .offer-card .taxation-info { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e5e7eb;} /* Divisore per tassazione */
+
+
+        /* Contatti */
+        #contatti { background-color: var(--accent); color: var(--light); }
+        #contatti .section-title, #contatti .section-subtitle { color: var(--white); }
+        #contatti .footer-text { margin-top: 4rem; color: var(--gray); font-size: 0.9rem;}
+
+        /* Stili Menu Mobile */
+        body.mobile-menu-open {
+            overflow: hidden;
+        }
+
+        /* --- Keyframes --- */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes bounce { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, -12px); } }
+        @keyframes scaleIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+        /* --- Reduced Motion --- */
+        @media (prefers-reduced-motion: reduce) {
+          html { scroll-behavior: auto; }
+          *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; transition-delay: 0ms !important; animation-delay: 0ms !important; }
+          .animate-on-scroll, #hero h1, #hero .subtitle, #hero .cta-button, #hero .scroll-down-indicator { opacity: 1; transform: none; animation: none; }
+          #main-nav { transform: translateY(0%); }
+          .accordion-content { transition: none; }
+          .accordion-item.open .accordion-content { max-height: none; }
+          #feature-details-box { transition: none; }
+          #feature-details-box.visible { max-height: none; }
+          .hoverable-card:hover { transform: none; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05); }
+          .dark-section .hoverable-card:hover { box-shadow: 0 8px 25px rgba(255, 255, 255, 0.05); }
+        }
+
+        /* Stili per Pacchetto Attivazione Espandibile */
+        .activation-package-toggle {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--dark);
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 12px rgba(243, 223, 217, 0.3);
+        }
+
+        .activation-package-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(243, 223, 217, 0.4);
+        }
+
+        .activation-package-toggle i {
+            transition: transform 0.3s ease;
+        }
+
+        .activation-package-toggle.active i {
+            transform: rotate(180deg);
+        }
+
+        .activation-package-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .activation-package-content.active {
+            max-height: 3500px;
+        }
+
+        .activation-package-inner {
+            background: linear-gradient(135deg, #faf6f5 0%, #f8f0ee 100%);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            margin-top: 1rem;
+            color: var(--dark);
+            border: 2px solid rgba(243, 223, 217, 0.5);
+        }
+
+        .package-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(243, 223, 217, 0.3);
+        }
+
+        .package-item:last-child {
+            border-bottom: none;
+        }
+
+        .package-item-name {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex: 1;
+        }
+
+        .package-item-name i {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .package-item-price {
+            font-weight: 700;
+            color: #d4988a;
+            font-size: 1.1rem;
+        }
+
+        .package-box {
+            background: rgba(243, 223, 217, 0.1);
+            border: 2px solid var(--primary);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .package-box h4 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .package-box-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .package-box-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--dark);
+        }
+
+        .package-box-item i {
+            color: var(--primary);
+        }
+
+        .package-total {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--primary);
+        }
+
+        .package-total-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .package-total-price {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #d4988a;
+        }
+
+        .package-note {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-top: 1rem;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .activation-package-inner {
+                padding: 1.25rem;
+            }
+
+            .package-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .package-item-price {
+                align-self: flex-end;
+            }
+
+            .package-box h4 {
+                font-size: 1rem;
+                word-wrap: break-word;
+            }
+
+            .package-box-items {
+                grid-template-columns: 1fr;
+            }
+
+            .package-total-price {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="scroll-progress-bar"></div>
+
+    <header id="main-nav" class="w-full">
+        <div class="nav-container">
+            <!-- Hamburger Menu (Mobile Only, Left) -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-2xl text-accent focus:outline-none" aria-label="Apri menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+    
+            <!-- Logo (Center on Mobile, Left on Desktop) -->
+            <div class="flex-1 flex justify-center md:flex-initial md:justify-start">
+                <a href="#hero" class="logo">MoorentPm</a>
+            </div>
+    
+            <!-- Desktop Navigation (Center) -->
+            <nav class="hidden md:flex flex-1 justify-center items-center desktop-nav">
+                <a href="#problema" class="nav-link">Il Problema</a>
+                <a href="#valori-pilastri" class="nav-link">Valori</a>
+                <a href="#come-funziona" class="nav-link">Servizi</a>
+                <a href="#perche-noi" class="nav-link">Perché Noi</a>
+                <a href="#risultati" class="nav-link">Risultati</a>
+                <a href="#immobile-ideale" class="nav-link">Immobile Ideale</a>
+                <a href="#offerta" class="nav-link">Offerta</a>
+                <a href="#contatti" class="nav-link">Contatti</a>
+            </nav>
+    
+            <!-- Contact Button (Desktop Only, Right) -->
+            <div class="hidden md:block">
+                 <a href="#contatti" class="btn btn-primary btn-sm py-2 px-4">Contattaci</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="hero" class="relative">
+        <div class="container-lg z-10">
+            <h1 class="animate-on-scroll fade-in-up">Partnership Strategica per Agenzie Immobiliari</h1>
+            <p class="subtitle animate-on-scroll fade-in-up delay-200">Monetizza opportunità perse e offri soluzioni innovative ai tuoi clienti</p>
+            <a href="#problema" class="cta-button btn btn-primary text-lg animate-on-scroll fade-in-up delay-400">Scopri la Proposta</a>
+        </div>
+        <a href="#problema" class="scroll-down-indicator" aria-label="Scorri verso il basso">
+            <i class="fas fa-chevron-down"></i>
+        </a>
+    </section>
+
+    <section id="problema" class="bg-white">
+        <div class="container-lg text-center">
+            <h2 class="section-title animate-on-scroll fade-in-up">Le <span class="text-primary">Opportunità Perse</span> delle Agenzie</h2>
+            <p class="section-subtitle animate-on-scroll fade-in-up delay-100">
+                Ogni giorno le agenzie immobiliari ricevono richieste per affitti brevi che non riescono a gestire. Risultato? Cliente perso, zero guadagno.
+            </p>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="problem-card hoverable-card animate-on-scroll fade-in-up delay-200">
+                    <span class="problem-icon"><i class="fas fa-ban"></i></span>
+                    <h3 class="font-semibold text-xl mb-2">Richieste Rifiutate</h3>
+                    <p>"Vorrei affittare a breve termine" → "Mi dispiace, non ci occupiamo di affitti brevi" → Opportunità persa completamente.</p>
+                </div>
+                <div class="problem-card hoverable-card animate-on-scroll fade-in-up delay-300">
+                     <span class="problem-icon"><i class="fas fa-building"></i></span>
+                    <h3 class="font-semibold text-xl mb-2">Immobili in Portfolio Sottoutilizzati</h3>
+                    <p>Immobili in affitto tradizionale con potenziale non sfruttato: rischio morosità, stress gestionale, rendimento limitato.</p>
+                </div>
+                <div class="problem-card hoverable-card animate-on-scroll fade-in-up delay-400">
+                     <span class="problem-icon"><i class="fas fa-handshake-slash"></i></span>
+                    <h3 class="font-semibold text-xl mb-2">Mancanza di Differenziazione</h3>
+                    <p>Difficoltà a distinguersi dai competitor offrendo soluzioni innovative che i clienti cercano sempre più.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="valori-pilastri" class="dark-section">
+        <div class="container-lg">
+            <h2 class="section-title animate-on-scroll fade-in-up">Due <span class="text-primary">Canali di Collaborazione</span></h2>
+            <p class="section-subtitle animate-on-scroll fade-in-up delay-100">
+                Trasforma le agenzie in partner strategici, permettendo loro di monetizzare opportunità altrimenti perse e offrire soluzioni innovative.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- CANALE 1: Gestioni Premium -->
+                <div class="vp-card hoverable-card animate-on-scroll fade-in-up delay-200 bg-white bg-opacity-5 border-2 border-primary">
+                    <span class="vp-icon text-6xl mb-4"><i class="fas fa-trophy"></i></span>
+                    <h3 class="vp-title text-2xl mb-3">CANALE 1: Gestioni Premium</h3>
+                    <p class="vp-description text-lg mb-4">Clienti che chiedono affitti brevi → Referral a MoorentPm → Fee per l'agenzia</p>
+                    <ul class="styled-list text-left">
+                        <li><i class="fas fa-check"></i>Fee €650 per immobili alto livello </li>
+                        <li><i class="fas fa-check"></i>Fee variabile per altri immobili dopo analisi</li>
+                        <li><i class="fas fa-check"></i>Zero effort: solo mettere in contatto</li>
+                        <li><i class="fas fa-check"></i>Nessun limite al numero di referral</li>
+                    </ul>
+                </div>
+
+                <!-- CANALE 2: Sublocazioni -->
+                <div class="vp-card hoverable-card animate-on-scroll fade-in-up delay-300 bg-white bg-opacity-5 border-2 border-primary">
+                    <span class="vp-icon text-6xl mb-4"><i class="fas fa-building"></i></span>
+                    <h3 class="vp-title text-2xl mb-3">CANALE 2: Sublocazioni</h3>
+                    <p class="vp-description text-lg mb-4">Immobili in affitto tradizionale → Sublocati da MoorentPm → Fee standard affitto + vantaggi</p>
+                    <ul class="styled-list text-left">
+                        <li><i class="fas fa-check"></i>Fee standard affitto (come inquilino normale)</li>
+                        <li><i class="fas fa-check"></i>Pagamenti SEMPRE puntuali, zero morosità</li>
+                        <li><i class="fas fa-check"></i>Immobile valorizzato professionalmente</li>
+                        <li><i class="fas fa-check"></i>Proprietario felice = cliente fidelizzato</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="come-funziona" class="bg-white">
+        <div class="container-lg">
+             <h2 class="section-title animate-on-scroll fade-in-up">Come Funziona la <span class="text-primary">Partnership</span></h2>
+            <p class="section-subtitle animate-on-scroll fade-in-up delay-100">
+                Due canali distinti per monetizzare ogni opportunità: referral per affitti brevi e sublocazioni del portfolio tradizionale.
+            </p>
+
+            <div class="flex flex-wrap justify-center gap-2 md:gap-4 mb-10 animate-on-scroll fade-in-up delay-200 service-tabs">
+                <button class="service-tab-button active" data-target="gestione-premium">CANALE 1: Gestioni Premium</button>
+                <button class="service-tab-button" data-target="subaffitto">CANALE 2: Sublocazioni</button>
+            </div>
+
+            <div class="service-content-container max-w-4xl mx-auto">
+                <div id="gestione-premium" class="service-content active">
+                    <h3 class="text-2xl font-bold mb-2 text-center">CANALE 1: Gestioni Premium</h3>
+                    <p class="service-subtitle">Referral Fee per Clienti Affitti Brevi</p>
+                    <p class="text-center text-gray-700 mb-8">Quando un proprietario ti chiede affitti brevi, non perdere l'opportunità: referral a MoorentPm e guadagni una fee.</p>
+                    <div class="grid md:grid-cols-2 gap-6 text-sm">
+                        <div class="service-point hoverable-card">
+                            <h4 class="font-semibold"><i class="fas fa-euro-sign"></i>Fee Structure Flessibile</h4>
+                            <p><strong>€650</strong> standard per immobili alto livello. Fee variabile per altri immobili dopo nostra valutazione professionale.</p>
+                        </div>
+                        <div class="service-point hoverable-card">
+                             <h4 class="font-semibold"><i class="fas fa-handshake"></i>Zero Effort Richiesto</h4>
+                            <p>Ti basta mettere in contatto il proprietario con MoorentPm. Noi ci occupiamo di tutto il resto. Pagamento entro 15 giorni dalla firma.</p>
+                        </div>
+                         <div class="service-point hoverable-card">
+                             <h4 class="font-semibold"><i class="fas fa-calculator"></i>Selezione Qualitativa</h4>
+                            <p>Valutiamo ogni immobile con criteri oggettivi e analisi di mercato. Accettiamo solo immobili con caratteristiche eccellenti e potenziale certificato.</p>
+                        </div>
+                         <div class="service-point hoverable-card">
+                             <h4 class="font-semibold"><i class="fas fa-infinity"></i>Nessun Limite ai Referral</h4>
+                            <p>Puoi proporre quanti immobili vuoi. Ogni immobile accettato = nuova fee per l'agenzia. Opportunità illimitata.</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="subaffitto" class="service-content">
+                    <h3 class="text-2xl font-bold mb-2 text-center">CANALE 2: Sublocazioni</h3>
+                    <p class="service-subtitle">L'Inquilino Perfetto per il Tuo Portfolio</p>
+                     <p class="text-center text-gray-700 mb-8">MoorentPm subloca immobili del tuo portfolio in affitto tradizionale. Fee standard per te, vantaggi straordinari per il proprietario.</p>
+                     <div class="grid md:grid-cols-2 gap-6 text-sm">
+                        <div class="service-point hoverable-card">
+                            <h4 class="font-semibold"><i class="fas fa-money-check-alt"></i>Pagamenti SEMPRE Puntuali</h4>
+                            <p>MoorentPm è un'azienda strutturata, non un privato. Pagamenti garantiti al 100%, mai ritardi, mai solleciti, mai morosità.</p>
+                        </div>
+                        <div class="service-point hoverable-card">
+                             <h4 class="font-semibold"><i class="fas fa-star"></i>Immobile Valorizzato Professionalmente</h4>
+                             <p>Investiamo in home staging, arredi premium, attrezzature smart. L'immobile vale significativamente di più a fine contratto.</p>
+                        </div>
+                         <div class="service-point hoverable-card">
+                             <h4 class="font-semibold"><i class="fas fa-tools"></i>Manutenzione Costante ed Eccellente</h4>
+                            <p>Standard alberghiero, non standard inquilino. Pulizia professionale continua, manutenzione preventiva, cura maniacale dei dettagli.</p>
+                        </div>
+                         <div class="service-point hoverable-card">
+                             <h4 class="font-semibold"><i class="fas fa-smile"></i>Proprietario Felice = Cliente Fidelizzato</h4>
+                            <p>Servizio premium, pagamenti garantiti, immobile valorizzato. Il proprietario sarà legato all'agenzia per sempre.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="text-center text-xs text-gray-500 mt-8 animate-on-scroll fade-in-up delay-300">Esploriamo insieme le opportunità di collaborazione con un'analisi preliminare gratuita e senza impegno.</p>
+        </div>
+    </section>
+
+    <section id="perche-noi" class="dark-section">
+        <div class="container-lg">
+            <h2 class="section-title animate-on-scroll fade-in-up">Perché Questa Collaborazione <span class="text-primary">Ha Senso</span></h2>
+            <p class="section-subtitle animate-on-scroll fade-in-up delay-100">
+                Win-Win-Win per tutti gli stakeholder: agenzia, proprietario e MoorentPm. Un modello di partnership equo e sostenibile.
+            </p>
+            <div class="grid md:grid-cols-2 gap-x-12 gap-y-10">
+                <div class="differentiator-item animate-on-scroll fade-in-left delay-200">
+                    <i class="differentiator-icon fas fa-dollar-sign"></i>
+                    <div>
+                        <h4 class="differentiator-title">Monetizza Richieste Perse</h4>
+                        <p class="differentiator-text">Fee per ogni cliente che chiede affitti brevi (solo immobili qualificati). Trasforma un "no" in un guadagno concreto.</p>
+                    </div>
+                </div>
+                 <div class="differentiator-item animate-on-scroll fade-in-right delay-250">
+                    <i class="differentiator-icon fas fa-calculator"></i>
+                    <div>
+                        <h4 class="differentiator-title">Selezione Rigorosa e Professionale</h4>
+                        <p class="differentiator-text">Valutiamo ogni immobile con criteri oggettivi prima dell'accettazione. Se paghiamo la fee, il potenziale è eccellente e certificato.</p>
+                    </div>
+                </div>
+                 <div class="differentiator-item animate-on-scroll fade-in-left delay-300">
+                    <i class="differentiator-icon fas fa-user-check"></i>
+                    <div>
+                        <h4 class="differentiator-title">Inquilini Perfetti per Sublocazioni</h4>
+                        <p class="differentiator-text">MoorentPm = pagamenti SEMPRE puntuali, zero morosità, zero controversie. L'inquilino che ogni agenzia desidera.</p>
+                    </div>
+                </div>
+                 <div class="differentiator-item animate-on-scroll fade-in-right delay-350">
+                    <i class="differentiator-icon fas fa-home"></i>
+                    <div>
+                        <h4 class="differentiator-title">Immobili Valorizzati</h4>
+                        <p class="differentiator-text">Trattamento eccellente, manutenzione costante, valore patrimoniale aumentato. Il proprietario sarà eternamente grato all'agenzia.</p>
+                    </div>
+                </div>
+                 <div class="differentiator-item animate-on-scroll fade-in-left delay-400">
+                    <i class="differentiator-icon fas fa-smile-beam"></i>
+                    <div>
+                        <h4 class="differentiator-title">Clienti Soddisfatti e Fidelizzati</h4>
+                        <p class="differentiator-text">Proprietari felici = relazioni forti e durature con l'agenzia. Partnership che crea valore a lungo termine.</p>
+                    </div>
+                </div>
+                <div class="differentiator-item animate-on-scroll fade-in-right delay-450">
+                    <i class="differentiator-icon fas fa-trophy"></i>
+                    <div>
+                        <h4 class="differentiator-title">Differenziazione Competitiva</h4>
+                        <p class="differentiator-text">Offri soluzioni innovative che i competitor non hanno. Posizionati come agenzia all'avanguardia nel mercato.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="risultati">
+        <div class="container-lg">
+             <h2 class="section-title animate-on-scroll fade-in-up">Partnership di Successo, <span class="text-primary">Risultati Concreti</span></h2>
+            <p class="section-subtitle animate-on-scroll fade-in-up delay-100">
+                La nostra esperienza nel property management premium garantisce risultati eccellenti per proprietari e agenzie partner.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-start">
+                <div class="animate-on-scroll fade-in-left delay-200">
+                    <h3 class="text-2xl font-semibold mb-6 text-center md:text-left">La Nostra Track Record</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-center mb-8">
+                         <div class="kpi-card hoverable-card">
+                            <p class="satisfaction-score">4.8+</p>
+                            <p>Rating Medio Ospiti (Airbnb)</p>
+                        </div>
+                         <div class="kpi-card hoverable-card">
+                            <p class="satisfaction-score">8.7+</p>
+                            <p>Punteggio Medio Ospiti (Booking.com)</p>
+                        </div>
+                         <div class="kpi-card hoverable-card">
+                            <p class="satisfaction-score">100%</p>
+                            <p>Pagamenti Puntuali (Sublocazioni)</p>
+                        </div>
+                         <div class="kpi-card hoverable-card">
+                            <p class="satisfaction-score">0%</p>
+                            <p>Morosità su Sublocazioni</p>
+                        </div>
+                    </div>
+                     <div class="feedback-box hoverable-card">
+                        <h4 class="font-semibold text-lg"><i class="fas fa-handshake mr-2 text-primary"></i> Vantaggi per le Agenzie Partner:</h4>
+                        <ul class="mt-3">
+                            <li>Fee garantite per referral qualificati.</li>
+                            <li>Zero rischi: valutiamo ogni immobile con criteri oggettivi e professionali.</li>
+                            <li>Proprietari soddisfatti e fidelizzati all'agenzia.</li>
+                            <li>Immobili sublocati sempre valorizzati e mantenuti perfettamente.</li>
+                            <li>Supporto professionale e comunicazione trasparente.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="animate-on-scroll fade-in-right delay-300">
+                     <h3 class="text-2xl font-semibold mb-6 text-center md:text-left">Il Nostro Approccio Premium</h3>
+                    <div class="custom-card hoverable-card bg-primary/10 border border-primary/30">
+                        <h4 class="text-xl font-semibold mb-4 text-center"><span class="text-primary">Selezione Qualitativa</span></h4>
+                        <p class="text-gray-700 mb-4">
+                            <i class="fas fa-check-circle text-success mr-2"></i>
+                            <strong>Valutazione Oggettiva:</strong> Ogni immobile viene analizzato con criteri rigorosi e analisi di mercato
+                            per garantire sostenibilità economica e risultati eccellenti.
+                        </p>
+                        <p class="text-gray-700 mb-4">
+                            <i class="fas fa-star text-success mr-2"></i>
+                            <strong>Standard Premium:</strong> Rating 4.8+ su Airbnb e 8.7+ su Booking.com
+                            dimostrano la qualità del nostro servizio.
+                        </p>
+                        <p class="text-gray-700 mb-4">
+                            <i class="fas fa-shield-alt text-success mr-2"></i>
+                            <strong>Affidabilità Totale:</strong> 100% pagamenti puntuali sulle sublocazioni,
+                            0% morosità. L'inquilino perfetto per il tuo portfolio.
+                        </p>
+                        <p class="text-gray-700">
+                            <i class="fas fa-rocket text-success mr-2"></i>
+                            <strong>Valorizzazione Continua:</strong> Investiamo in home staging, arredi premium
+                            e manutenzione costante per aumentare il valore degli immobili.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="immobile-ideale" class="bg-gray-50">
+        <div class="container-lg">
+            <h2 class="section-title animate-on-scroll fade-in-up">Immobili Ideali per <span class="text-primary">Referral di Successo</span></h2>
+            <p class="section-subtitle animate-on-scroll fade-in-up delay-100">
+                Condividi con noi immobili con queste caratteristiche per massimizzare il successo della collaborazione e la fee garantita.
+            </p>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Location Premium -->
+                <div class="custom-card hoverable-card animate-on-scroll fade-in-up delay-200">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-map-marker-alt text-5xl text-primary"></i>
+                    </div>
+                    <h4 class="font-bold text-xl mb-3 text-center">Location Premium</h4>
+                    <ul class="text-sm text-gray-700 space-y-2">
+                        <li><i class="fas fa-check text-success mr-2"></i>Zone centrali o turistiche</li>
+                        <li><i class="fas fa-check text-success mr-2"></i>Vicinanza a servizi e trasporti</li>
+                        <li><i class="fas fa-check text-success mr-2"></i>Area ad alta domanda verificata</li>
+                        <li><i class="fas fa-check text-success mr-2"></i>Contesti residenziali di qualità</li>
+                    </ul>
+                </div>
+
+                <!-- Caratteristiche Immobile -->
+                <div class="custom-card hoverable-card animate-on-scroll fade-in-up delay-300">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-home text-5xl text-primary"></i>
+                    </div>
+                    <h4 class="font-bold text-xl mb-3 text-center">Caratteristiche Immobile</h4>
+                    <ul class="text-sm text-gray-700 space-y-2">
+                        <li><i class="fas fa-check text-success mr-2"></i>Buone condizioni generali</li>
+                        <li><i class="fas fa-check text-success mr-2"></i>Metratura adeguata (45+ mq)</li>
+                        <li><i class="fas fa-check text-success mr-2"></i>Luminosità e qualità spazi</li>
+                        <li><i class="fas fa-check text-success mr-2"></i>Potenziale di valorizzazione</li>
+                    </ul>
+                </div>
+
+                <!-- Proprietari Ideali -->
+                <div class="custom-card hoverable-card animate-on-scroll fade-in-up delay-400">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-user-tie text-5xl text-primary"></i>
+                    </div>
+                    <h4 class="font-bold text-xl mb-3 text-center">Proprietari Ideali</h4>
+                    <ul class="text-sm text-gray-700 space-y-2">
+                        <li><i class="fas fa-check text-success mr-2"></i>Orientati al medio-lungo termine</li>
+                        <li><i class="fas fa-check text-success mr-2"></i>Interesse per gestione professionale</li>
+                        <li><i class="fas fa-check text-success mr-2"></i>Aperti a investimenti iniziali</li>
+                        <li><i class="fas fa-check text-success mr-2"></i>Fiducia nel property management</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Processo di Valutazione -->
+            <div class="max-w-4xl mx-auto mt-12 animate-on-scroll fade-in-up delay-500">
+                <div class="custom-card bg-primary/5 border-2 border-primary/30">
+                    <h3 class="text-2xl font-bold text-center mb-6">
+                        <i class="fas fa-calculator text-primary mr-2"></i>
+                        Il Nostro Processo di Valutazione
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold text-lg mb-3">
+                                <i class="fas fa-chart-line text-primary mr-2"></i>
+                                Analisi di Mercato
+                            </h4>
+                            <p class="text-sm text-gray-700">
+                                Analizziamo i dati di mercato e monitoriamo i competitor per stimare il potenziale di revenue dell'immobile.
+                                Verifichiamo domanda turistica, stagionalità e prezzi medi della zona.
+                            </p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-lg mb-3">
+                                <i class="fas fa-balance-scale text-primary mr-2"></i>
+                                Sostenibilità Economica
+                            </h4>
+                            <p class="text-sm text-gray-700">
+                                Verifichiamo la sostenibilità di ogni collaborazione con analisi approfondite.
+                                Accettiamo solo immobili che rispettano i nostri standard di qualità e redditività.
+                            </p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-lg mb-3">
+                                <i class="fas fa-file-invoice-dollar text-primary mr-2"></i>
+                                Proposta Fee Personalizzata
+                            </h4>
+                            <p class="text-sm text-gray-700">
+                                Dopo l'analisi preliminare, comunichiamo all'agenzia la fee proposta per quello specifico immobile.
+                                Fee €650 per alto livello, variabile per altri immobili.
+                            </p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-lg mb-3">
+                                <i class="fas fa-handshake text-primary mr-2"></i>
+                                Business Plan Dettagliato
+                            </h4>
+                            <p class="text-sm text-gray-700">
+                                Se la valutazione è positiva e la fee accettata, procediamo con sopralluogo e business plan dettagliato
+                                per il proprietario, garantendo risultati eccellenti.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+
+    <section id="offerta" class="bg-gray-100">
+        <div class="container-lg">
+            <h2 class="section-title animate-on-scroll fade-in-up">Riepilogo <span class="text-primary">Fee Structure</span></h2>
+            <p class="section-subtitle animate-on-scroll fade-in-up delay-100">
+                Struttura di compensi chiara e trasparente per ogni tipo di collaborazione. Win-Win per tutti.
+            </p>
+
+            <!-- TABELLA FEE STRUCTURE -->
+            <div class="max-w-5xl mx-auto mb-12 animate-on-scroll fade-in-up delay-200">
+                <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-accent text-white">
+                                <tr>
+                                    <th class="px-6 py-4 text-left text-sm font-bold">Tipo Collaborazione</th>
+                                    <th class="px-6 py-4 text-left text-sm font-bold">Fee Agenzia</th>
+                                    <th class="px-6 py-4 text-left text-sm font-bold">Effort Richiesto</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr class="hover:bg-gray-50 transition-colors">
+                                    <td class="px-6 py-5">
+                                        <div class="font-semibold text-accent mb-1">Gestione Premium</div>
+                                        <div class="text-sm text-gray-600">Immobili Alto Livello</div>
+                                    </td>
+                                    <td class="px-6 py-5">
+                                        <div class="text-2xl font-bold text-primary">€650</div>
+                                        <div class="text-xs text-gray-500">standard</div>
+                                    </td>
+                                    <td class="px-6 py-5">
+                                        <div class="text-sm text-gray-700">Referral semplice</div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50 transition-colors">
+                                    <td class="px-6 py-5">
+                                        <div class="font-semibold text-accent mb-1">Gestione Premium</div>
+                                        <div class="text-sm text-gray-600">Altri Immobili</div>
+                                    </td>
+                                    <td class="px-6 py-5">
+                                        <div class="text-lg font-semibold text-gray-700">Fee variabile</div>
+                                        <div class="text-xs text-gray-500">comunicata dopo analisi</div>
+                                    </td>
+                                    <td class="px-6 py-5">
+                                        <div class="text-sm text-gray-700">Referral semplice</div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50 transition-colors">
+                                    <td class="px-6 py-5">
+                                        <div class="font-semibold text-accent mb-1">Sublocazione</div>
+                                        <div class="text-sm text-gray-600">Immobili portfolio tradizionale</div>
+                                    </td>
+                                    <td class="px-6 py-5">
+                                        <div class="text-lg font-semibold text-gray-700">Fee Standard Affitto</div>
+                                        <div class="text-xs text-gray-500">come inquilino normale</div>
+                                    </td>
+                                    <td class="px-6 py-5">
+                                        <div class="text-sm text-gray-700">Gestione normale contratto</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NOTE IMPORTANTI -->
+            <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-6 mt-12">
+                <div class="custom-card hoverable-card animate-on-scroll fade-in-left delay-300">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-calculator text-4xl text-primary"></i>
+                    </div>
+                    <h4 class="font-bold text-lg mb-3 text-center">Valutazione Professionale</h4>
+                    <p class="text-sm text-gray-700 leading-relaxed">
+                        Ogni immobile viene analizzato preventivamente con <strong>criteri oggettivi e rigorosi</strong>.
+                        Accettiamo solo proprietà che rispettano i nostri standard di qualità, garantendo partnership sostenibili e profittevoli per tutti.
+                    </p>
+                </div>
+
+                <div class="custom-card hoverable-card animate-on-scroll fade-in-right delay-400">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-handshake text-4xl text-primary"></i>
+                    </div>
+                    <h4 class="font-bold text-lg mb-3 text-center">Trasparenza Totale</h4>
+                    <p class="text-sm text-gray-700 leading-relaxed">
+                        La fee per immobili di fascia media viene comunicata dopo l'analisi preliminare.
+                        Le sublocazioni non hanno fee speciale perché l'agenzia guadagna già la sua <strong>commissione standard</strong> del contratto d'affitto.
+                    </p>
+                </div>
+            </div>
+
+            <!-- COMPARAZIONE INQUILINO -->
+            <div class="max-w-5xl mx-auto mt-16 animate-on-scroll fade-in-up delay-500">
+                <h3 class="text-2xl font-bold text-center mb-8">
+                    Inquilino Tradizionale vs <span class="text-primary">MoorentPm</span>
+                </h3>
+                <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="px-6 py-4 text-left text-sm font-bold text-gray-700">Caratteristica</th>
+                                    <th class="px-6 py-4 text-left text-sm font-bold text-gray-700">Inquilino Privato Tradizionale</th>
+                                    <th class="px-6 py-4 text-left text-sm font-bold text-primary">Inquilino MoorentPm</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 font-semibold text-gray-700">Pagamenti</td>
+                                    <td class="px-6 py-4 text-sm">
+                                        <i class="fas fa-exclamation-triangle text-warning mr-2"></i>
+                                        Ritardi 20-30%<br>
+                                        <i class="fas fa-times-circle text-danger mr-2"></i>
+                                        Rischio morosità 5-10%
+                                    </td>
+                                    <td class="px-6 py-4 text-sm">
+                                        <i class="fas fa-check-circle text-success mr-2"></i>
+                                        <strong>SEMPRE puntuali 100%</strong><br>
+                                        <i class="fas fa-shield-alt text-success mr-2"></i>
+                                        <strong>Zero morosità garantita</strong>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 font-semibold text-gray-700">Trattamento Immobile</td>
+                                    <td class="px-6 py-4 text-sm">
+                                        Usura standard<br>
+                                        Manutenzione minima<br>
+                                        Valore stabile/calante
+                                    </td>
+                                    <td class="px-6 py-4 text-sm">
+                                        <strong>Rinnovo professionale</strong><br>
+                                        <strong>Manutenzione eccellente</strong><br>
+                                        <strong>Valore AUMENTA</strong>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 font-semibold text-gray-700">Gestione Agenzia</td>
+                                    <td class="px-6 py-4 text-sm">
+                                        Solleciti frequenti<br>
+                                        Gestione controversie<br>
+                                        Stress operativo alto
+                                    </td>
+                                    <td class="px-6 py-4 text-sm">
+                                        <strong>Zero solleciti</strong><br>
+                                        <strong>Mai controversie</strong><br>
+                                        <strong>Stress ZERO</strong>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <section id="contatti" class="dark-section">
+        <div class="container-lg">
+            <h2 class="section-title animate-on-scroll fade-in-up">Iniziamo una <span class="text-primary">Partnership di Successo</span></h2>
+            <p class="section-subtitle animate-on-scroll fade-in-up delay-100">
+                Esploriamo insieme le opportunità di collaborazione. Contattaci per discutere di immobili da referrare o sublocare.
+            </p>
+            <div class="text-center mt-12 animate-on-scroll fade-in-up delay-200">
+                <a href="https://wa.me/393534830386" target="_blank" class="btn btn-primary text-lg">
+                    <i class="fab fa-whatsapp"></i> Contattaci per Partnership
+                </a>
+            </div>
+
+            <div class="footer-text text-center animate-on-scroll fade-in-up delay-400">
+                <p>MoorentPm - Partnership strategiche con agenzie immobiliari del Triveneto.</p>
+                <div class="mt-6 text-sm text-gray-500">
+                     © 2024 MoorentPm. Tutti i diritti riservati.
+                 </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Funzione Helper per debounce
+        function debounce(func, wait, immediate) {
+            let timeout;
+            return function executedFunction() {
+                const context = this; const args = arguments;
+                const later = function() { timeout = null; if (!immediate) func.apply(context, args); };
+                const callNow = immediate && !timeout; clearTimeout(timeout); timeout = setTimeout(later, wait);
+                if (callNow) func.apply(context, args);
+            };
+         }
+        // Verifica Disponibilità Chart.js
+        function isChartAvailable() { return typeof Chart !== 'undefined'; }
+
+        // --- Funzioni Inizializzazione Grafici ---
+        function initServicesChart() {
+             if (!isChartAvailable() || document.getElementById('servicesChart')?.chartInstance) return;
+             const ctx = document.getElementById('servicesChart')?.getContext('2d'); if (!ctx) return;
+             console.log("Inizializzazione Grafico Servizi...");
+             const chart = new Chart(ctx, { type: 'bar', data: { labels: ['Gestione Completa', 'Ottimizzazione Ricavi', 'Marketing & Visibilità', 'Manutenzione & Qualità', 'Supporto Burocratico', 'Assistenza Ospiti'], datasets: [{ label: 'Livello Servizio MoorentPm', data: [95, 95, 85, 90, 90, 95], backgroundColor: 'rgba(243, 223, 217, 0.7)', borderColor: 'var(--primary-dark)', borderWidth: 1 }] }, options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, scales: { x: { beginAtZero: true, max: 100, grid: { display: false } }, y: { grid: { display: false } } }, plugins: { legend: { display: false }, title: { display: true, text: 'Aree di Eccellenza del Servizio' } }, animation: { duration: 1500, easing: 'easeOutQuart' } } });
+             document.getElementById('servicesChart').chartInstance = chart;
+        }
+        function initPackageChart() {
+             if (!isChartAvailable() || document.getElementById('packageChart')?.chartInstance) return;
+             const ctx = document.getElementById('packageChart')?.getContext('2d'); if (!ctx) return;
+             console.log("Inizializzazione Grafico Pacchetto...");
+             const packageData = { labels: [ 'Staging (€250)', 'Foto (€150)', 'Fiscale (€100)', 'Assic. (€100)', 'Check-in (€100)', 'Set Base (€70)', 'Welcome (€50)', 'Pratiche (€20)' ], values: [ 250, 150, 100, 100, 100, 70, 50, 20 ] };
+             const backgroundColors = [ '#f3dfd9', '#aca5a5', '#232323', '#f8d0c3', '#b58577', '#8f8a8a', '#e0b9ae', '#6b6666' ];
+             let currentChartType = 'doughnut'; let packageChart = null;
+             function createPackageChartConfig(type) { const isDoughnut = type === 'doughnut'; return { type: type, data: { labels: packageData.labels, datasets: [{ data: packageData.values, backgroundColor: backgroundColors, borderColor: isDoughnut ? '#ffffff' : null, borderWidth: isDoughnut ? 3 : 0 }] }, options: { indexAxis: isDoughnut ? 'x' : 'y', responsive: true, maintainAspectRatio: false, plugins: { title: { display: true, text: 'Valore Componenti Pacchetto (€840)', font: { size: 14 } }, legend: { display: isDoughnut, position: 'bottom', labels: { padding: 15, font: { size: 10 } } }, tooltip: { callbacks: { label: function(context) { let label = context.label || ''; if (label) { label = label.split('(')[0].trim() + ': '; } label += `€${context.parsed.y || context.parsed}`; return label; } } } }, scales: { x: { display: !isDoughnut, beginAtZero: true, grid: { display: false }, title: { display: true, text: 'Valore (€)', font: { size: 10 } } }, y: { display: !isDoughnut, grid: { display: false }, ticks: { font: { size: 10 } } } }, animation: { duration: 1200, easing: 'easeOutCubic' } } }; }
+             packageChart = new Chart(ctx, createPackageChartConfig(currentChartType));
+             document.getElementById('packageChart').chartInstance = packageChart;
+             const toggleBtn = document.getElementById('toggleChartViewBtn');
+             if (toggleBtn && !toggleBtn.dataset.listenerAttached) { toggleBtn.addEventListener('click', () => { if (!packageChart) return; currentChartType = packageChart.config.type === 'doughnut' ? 'bar' : 'doughnut'; packageChart.destroy(); packageChart = new Chart(ctx, createPackageChartConfig(currentChartType)); document.getElementById('packageChart').chartInstance = packageChart; }); toggleBtn.dataset.listenerAttached = 'true'; }
+        }
+        function initFinancialChart() { /* Non usato in questa versione */ }
+        function initFinancialChartPadova() {
+            if (!isChartAvailable() || document.getElementById('financialChartPadova')?.chartInstance) return;
+            const ctx = document.getElementById('financialChartPadova')?.getContext('2d');
+            if (!ctx) { console.error("Canvas per Grafico Padova non trovato"); return; }
+            console.log("Inizializzazione Grafico Padova...");
+
+            const padovaData = {
+                labels: ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'],
+                guadagni: [600, 700, 1000, 1500, 1800, 2200, 2300, 2500, 1700, 1200, 300, 500]
+            };
+            const financialChartPadova = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: padovaData.labels,
+                    datasets: [{
+                        label: 'Guadagni Possibili (€)',
+                        data: padovaData.guadagni,
+                        borderColor: 'var(--primary)',
+                        backgroundColor: 'rgba(243, 223, 217, 0.4)',
+                        borderWidth: 3, fill: true, tension: 0.4,
+                        pointBackgroundColor: 'var(--primary-dark)', pointBorderColor: 'var(--white)',
+                        pointHoverBackgroundColor: 'var(--white)', pointHoverBorderColor: 'var(--primary-dark)',
+                        pointRadius: 5, pointHoverRadius: 7
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: false, title: { display: true, text: 'Guadagni Possibili (€)' }, grid: { color: 'rgba(0,0,0,0.08)'}, ticks: { stepSize: 500 } },
+                        x: { grid: { display: false } }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { mode: 'index', intersect: false, callbacks: { label: function(context) { return `Guadagno: €${context.parsed.y}`; } } }
+                    },
+                    interaction: { mode: 'nearest', axis: 'x', intersect: false },
+                    animation: { duration: 1500, easing: 'easeOutExpo' }
+                }
+            });
+            document.getElementById('financialChartPadova').chartInstance = financialChartPadova;
+        }
+
+
+        // --- Inizializzazione Globale ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const mainNav = document.getElementById('main-nav');
+            const scrollProgressBar = document.getElementById('scroll-progress-bar');
+            const navHeight = mainNav ? mainNav.offsetHeight : 60;
+            document.documentElement.style.setProperty('--nav-height', `${navHeight}px`);
+            let lastScrollTop = 0;
+
+            // Scroll handler per nascondere/mostrare la navbar
+            const handleScroll = () => {
+                if (document.body.classList.contains('mobile-menu-open')) return;
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                if (scrollTop > lastScrollTop && scrollTop > navHeight) {
+                    mainNav.classList.add('nav-hidden');
+                } else {
+                    mainNav.classList.remove('nav-hidden');
+                }
+                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+
+                // Barra di progresso
+                if (scrollProgressBar) { 
+                    const scrollPercent = (document.documentElement.scrollHeight - window.innerHeight) > 0 ? (scrollTop / (document.documentElement.scrollHeight - window.innerHeight)) * 100 : 0; 
+                    scrollProgressBar.style.width = `${scrollPercent}%`; 
+                }
+            };
+            window.addEventListener('scroll', handleScroll, { passive: true });
+
+
+            const animatedElements = document.querySelectorAll('.animate-on-scroll');
+            const observerOptions = { threshold: 0.1 };
+            const observer = new IntersectionObserver((entries, observerInstance) => {
+                entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observerInstance.unobserve(entry.target); } });
+            }, observerOptions);
+            animatedElements.forEach(el => observer.observe(el));
+
+            const chartObserverOptions = { threshold: 0.4 };
+            const chartObserver = new IntersectionObserver((entries, observerInstance) => {
+                 entries.forEach(entry => { if (entry.isIntersecting) { const canvas = entry.target; if (!canvas.chartInstance) { const canvasId = canvas.id; if (canvasId === 'servicesChart') initServicesChart(); else if (canvasId === 'packageChart') initPackageChart(); else if (canvasId === 'financialChartPadova') initFinancialChartPadova(); } observerInstance.unobserve(canvas); } });
+            }, chartObserverOptions);
+            document.querySelectorAll('canvas[id$="Chart"], canvas[id$="ChartPadova"]').forEach(canvas => chartObserver.observe(canvas));
+
+            const navLinks = document.querySelectorAll('.desktop-nav a');
+            const sections = document.querySelectorAll('section[id]');
+            const updateActiveNavLink = debounce(() => {
+                 let currentSectionId = ''; const referencePoint = window.pageYOffset + navHeight + (window.innerHeight * 0.4);
+                 sections.forEach(section => { const sectionTop = section.offsetTop; if (referencePoint >= sectionTop) { currentSectionId = section.getAttribute('id'); } });
+                 if (window.pageYOffset < sections[0]?.offsetTop - navHeight * 2) { currentSectionId = 'hero'; }
+                 navLinks.forEach(link => { link.classList.toggle('active', link.getAttribute('href') === `#${currentSectionId}`); });
+            }, 100);
+            window.addEventListener('scroll', updateActiveNavLink, { passive: true }); updateActiveNavLink();
+
+            // --- Logica Menu Mobile ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const closeMobileMenuButton = document.getElementById('close-mobile-menu');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileNavLinks = document.querySelectorAll('.nav-link-mobile');
+
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.remove('translate-x-full');
+                    document.body.classList.add('mobile-menu-open');
+                });
+            }
+
+            if (closeMobileMenuButton && mobileMenu) {
+                closeMobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.add('translate-x-full');
+                    document.body.classList.remove('mobile-menu-open');
+                });
+            }
+
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('translate-x-full');
+                    document.body.classList.remove('mobile-menu-open');
+                });
+            });
+
+            const serviceTabButtons = document.querySelectorAll('.service-tab-button');
+            const serviceTabContents = document.querySelectorAll('.service-content');
+            serviceTabButtons.forEach(button => {
+                  button.addEventListener('click', () => {
+                      const targetId = button.dataset.target;
+                      // Rimuove la classe 'active' da tutti i bottoni
+                      serviceTabButtons.forEach(btn => btn.classList.remove('active'));
+                      // Aggiunge la classe 'active' solo al bottone cliccato
+                      button.classList.add('active');
+                      
+                      serviceTabContents.forEach(content => {
+                          content.classList.toggle('active', content.id === targetId);
+                      });
+                  });
+             });
+
+            // --- Logica Toggle Pacchetto Attivazione ---
+            const packageToggleBtn = document.getElementById('packageToggleBtn');
+            const packageContent = document.getElementById('packageContent');
+            if (packageToggleBtn && packageContent) {
+                packageToggleBtn.addEventListener('click', () => {
+                    packageToggleBtn.classList.toggle('active');
+                    packageContent.classList.toggle('active');
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>

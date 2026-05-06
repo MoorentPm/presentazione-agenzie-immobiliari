@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoorentPm — Partnership Agenzie Immobiliari</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="antialiased">
+
+    <!-- Barra di progresso -->
+    <div id="scroll-progress-bar"></div>
+
+    <!-- ============================================================
+         NAVIGAZIONE
+    ============================================================ -->
+    <header id="main-nav" class="w-full">
+        <div class="nav-container">
+            <!-- Hamburger (mobile) -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-2xl text-accent focus:outline-none" aria-label="Apri menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <!-- Logo -->
+            <div class="flex-1 flex justify-center md:flex-initial md:justify-start">
+                <a href="#hero" class="logo">MoorentPm</a>
+            </div>
+
+            <!-- Nav desktop -->
+            <nav class="hidden md:flex flex-1 justify-center items-center desktop-nav">
+                <a href="#problema" class="nav-link">Il Problema</a>
+                <a href="#valori-pilastri" class="nav-link">Canali</a>
+                <a href="#come-funziona" class="nav-link">Servizi</a>
+                <a href="#perche-noi" class="nav-link">Perché Noi</a>
+                <a href="#risultati" class="nav-link">Risultati</a>
+                <a href="#immobile-ideale" class="nav-link">Immobile Ideale</a>
+                <a href="#offerta" class="nav-link">Fee</a>
+                <a href="#contatti" class="nav-link">Contatti</a>
+            </nav>
+
+            <!-- CTA desktop -->
+            <div class="hidden md:block">
+                <a href="#contatti" class="btn btn-primary py-2 px-4 text-sm">Contattaci</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============================================================
+         MENU MOBILE PANEL
+    ============================================================ -->
+    <div id="mobile-menu-overlay"></div>
+
+    <div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigazione mobile">
+        <div class="mobile-menu-header">
+            <span class="logo">MoorentPm</span>
+            <button id="close-mobile-menu" aria-label="Chiudi menu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="mobile-nav">
+            <a href="#problema" class="nav-link-mobile"><i class="fas fa-lightbulb"></i> Il Problema</a>
+            <a href="#valori-pilastri" class="nav-link-mobile"><i class="fas fa-handshake"></i> Canali</a>
+            <a href="#come-funziona" class="nav-link-mobile"><i class="fas fa-cogs"></i> Servizi</a>
+            <a href="#perche-noi" class="nav-link-mobile"><i class="fas fa-star"></i> Perché Noi</a>
+            <a href="#risultati" class="nav-link-mobile"><i class="fas fa-chart-line"></i> Risultati</a>
+            <a href="#immobile-ideale" class="nav-link-mobile"><i class="fas fa-home"></i> Immobile Ideale</a>
+            <a href="#offerta" class="nav-link-mobile"><i class="fas fa-euro-sign"></i> Fee</a>
+            <a href="#contatti" class="nav-link-mobile"><i class="fas fa-envelope"></i> Contatti</a>
+        </nav>
+        <div class="mobile-menu-cta">
+            <a href="#contatti" class="btn btn-primary nav-link-mobile">Contattaci</a>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         HERO
+    ============================================================ -->
+    <section id="hero" class="relative">
+        <div class="hero-grid"></div>
+        <div class="container-lg z-10 relative">
+            <div class="animate-on-scroll fade-in-up">
+                <span class="hero-badge">
+                    <i class="fas fa-building"></i> Partnership Agenzie Immobiliari
+                </span>
+            </div>
+            <h1 class="animate-on-scroll fade-in-up delay-100">
+                Monetizza le Opportunità<br>
+                <span style="color: var(--primary);">che Stai Perdendo</span>
+            </h1>
+            <p class="subtitle animate-on-scroll fade-in-up delay-200">
+                Trasforma le richieste di affitto breve in guadagni concreti.<br>
+                Partnership strategica con zero rischio e fee fissa garantita.
+            </p>
+            <div class="animate-on-scroll fade-in-up delay-300 flex flex-wrap justify-center gap-4">
+                <a href="#problema" class="btn btn-primary text-lg">
+                    <i class="fas fa-arrow-down"></i> Scopri la Proposta
+                </a>
+                <a href="#offerta" class="btn btn-accent text-lg">
+                    <i class="fas fa-euro-sign"></i> Vedi la Fee
+                </a>
+            </div>
+        </div>
+        <a href="#problema" class="scroll-down-indicator" aria-label="Scorri verso il basso">
+            <i class="fas fa-chevron-down"></i>
+        </a>
+    </section>
+
+    <!-- ============================================================
+         IL PROBLEMA
+    ============================================================ -->
+    <section id="problema" class="bg-white">
+        <div class="container-lg text-center">
+            <h2 class="section-title animate-on-scroll fade-in-up">
+                Le <span style="color: #c4796a;">Opportunità Perse</span> delle Agenzie
+            </h2>
+            <p class="section-subtitle animate-on-scroll fade-in-up delay-100">
+                Ogni giorno le agenzie immobiliari ricevono richieste per affitti brevi che non riescono a gestire. Risultato? Cliente perso, zero guadagno.
+            </p>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="problem-card animate-on-scroll fade-in-up delay-200">
+                    <span class="problem-icon"><i class="fas fa-ban"></i></span>
+                    <h3 class="font-semibold text-xl mb-2">Richieste Rifiutate</h3>
+                    <p>"Vorrei affittare a breve termine" → "Mi dispiace, non ci occupiamo di affitti brevi" → Opportunità persa completamente.</p>
+                </div>
+                <div class="problem-card animate-on-scroll fade-in-up delay-300">
+                    <span class="problem-icon"><i class="fas fa-building"></i></span>
+                    <h3 class="font-semibold text-xl mb-2">Immobili Sottoutilizzati</h3>
+                    <p>Immobili in affitto tradizionale con potenziale non sfruttato: rischio morosità, stress gestionale, rendimento limitato.</p>
+                </div>
+                <div class="problem-card animate-on-scroll fade-in-up delay-400">
+                    <span class="problem-icon"><i class="fas fa-handshake-slash"></i></span>
+                    <h3 class="font-semibold text-xl mb-2">Mancanza di Differenziazione</h3>
+                    <p>Difficoltà a distinguersi dai competitor offrendo soluzioni innovative che i clienti cercano sempre più.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         DUE CANALI
+    ============================================================ -->
+    <section id="valori-pilastri" class="dark-section">
+        <div class="container-lg">
+            <h2 class="section-title animate-on-scroll fade-in-up">
+                Due <span class="text-primary">Canali di Collaborazione</span>
+            </h2>
+            <p class="section-subtitle animate-on-scroll fade-in-up delay-100">
+                Trasforma la tua agenzia in un partner strategico, monetizzando opportunità altrimenti perse e offrendo soluzioni innovative ai tuoi clienti.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+
+                <!-- CANALE 1 -->
+                <div class="vp-card hoverable-card animate-on-scroll fade-in-up delay-200" style="border: 2px solid rgba(243,223,217,0.35);">
+                    <span class="vp-icon text-6xl mb-4"><i class="fas fa-paper-plane"></i></span>
+                    <h3 class="vp-title text-2xl mb-2">CANALE 1 — Referral Gestioni</h3>
+                    <p class="vp-description mb-5">Clienti che chiedono affitti brevi → Referral a MoorentPm → Fee fissa per l'agenzia</p>
+
+                    <div class="fee-badge justify-center mb-4">
+                        <span class="fee-amount">€300</span>
+                        <span class="fee-label ml-2">per ogni immobile accettato</span>
+                    </div>
+
+                    <ul class="styled-list text-left mt-2">
+                        <li><i class="fas fa-check"></i>Fee fissa di <strong>€300</strong> per ogni gestione portata</li>
+                        <li><i class="fas fa-check"></i>Pagata una sola volta alla firma del contratto</li>
+                        <li><i class="fas fa-check"></i>Zero effort: solo mettere in contatto</li>
+                        <li><i class="fas fa-check"></i>Nessun limite al numero di referral</li>
+                    </ul>
+                    <p style="font-size:0.85rem; color: var(--gray); margin-top:1rem;">
+                        <i class="fas fa-info-circle mr-1" style="color:var(--primary);"></i>
+                        Valutiamo ogni immobile: accettiamo solo proprietà con caratteristiche idonee.
+                    </p>
+                </div>
+
+                <!-- CANALE 2 -->
+                <div class="vp-card hoverable-card animate-on-scroll fade-in-up delay-300" style="border: 2px solid rgba(243,223,217,0.35);">
+                    <span class="vp-icon text-6xl mb-4"><i class="fas fa-building"></i></span>
+                    <h3 class="vp-title text-2xl mb-2">CANALE 2 — Sublocazioni</h3>
+                    <p class="vp-description mb-5">Immobili in affitto tradizionale → Sublocati da MoorentPm → Fee standard + vantaggi straordinari</p>
+                    <ul class="styled-list text-left">
+                        <li><i class="fas fa-check"></i>Fee standard affitto (come qualsiasi inquilino)</li>
+                        <li><i class="fas fa-check"></i>Pagamenti <strong>SEMPRE</strong> puntuali, zero morosità</li>
+                        <li><i class="fas fa-check"></i>Immobile valorizzato professionalmente</li>
+                        <li><i class="fas fa-check"></i>Proprietario felice = cliente fidelizzato</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         COME FUNZIONA
+    ============================================================ -->
+    <section id="come-funziona" class="bg-white">
+        <div class="container-lg">
+            <h2 class="section-title animate-on-scroll fade-in-up">
+                Come Funziona la <span style="color: #c4796a;">Partnership</span>
+            </h2>
+            <p class="section-subtitle animate-on-scroll fade-in-up delay-100">
+                Due canali distinti per monetizzare ogni opportunità: referral per affitti brevi e sublocazioni del portfolio tradizionale.
+            </p>
+
+            <div class="flex flex-wrap justify-center gap-3 md:gap-4 mb-10 animate-on-scroll fade-in-up delay-200 service-tabs">
+                <button class="service-tab-button active" data-target="gestione-premium">
+                    <i class="fas fa-paper-plane mr-2"></i>CANALE 1: Referral Gestioni
+                </button>
+                <button class="service-tab-button" data-target="subaffitto">
+                    <i class="fas fa-building mr-2"></i>CANALE 2: Sublocazioni
+                </button>
+            </div>
+
+            <div class="service-content-container max-w-4xl mx-auto">
+
+                <!-- Tab Gestione Premium -->
+                <div id="gestione-premium" class="service-content active">
+                    <h3 class="text-2xl font-bold mb-1 text-center">CANALE 1 — Referral Gestioni</h3>
+                    <p class="service-subtitle">Fee Fissa per Ogni Referral Accettato</p>
+
+                    <!-- Fee callout -->
+                    <div class="fee-callout animate-on-scroll scale-in">
+                        <div class="fee-number">€300</div>
+                        <div class="fee-desc">Fee fissa per ogni immobile che ci porti e che accettiamo</div>
+                        <div style="font-size:0.8rem; color: var(--secondary-dark); margin-top:0.5rem;">
+                            Pagata una sola volta alla firma del contratto con l'inquilino
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6 text-sm">
+                        <div class="service-point hoverable-card">
+                            <h4 class="font-semibold"><i class="fas fa-euro-sign"></i>Fee Semplice e Fissa</h4>
+                            <p>€300 fissi per ogni immobile che ci porti e che accettiamo. Un compenso unico e chiaro, senza distinzioni di categoria o negoziazioni.</p>
+                        </div>
+                        <div class="service-point hoverable-card">
+                            <h4 class="font-semibold"><i class="fas fa-handshake"></i>Zero Effort Richiesto</h4>
+                            <p>Ti basta mettere in contatto il proprietario con MoorentPm. Noi ci occupiamo di tutto il resto. Pagamento alla firma del contratto.</p>
+                        </div>
+                        <div class="service-point hoverable-card">
+                            <h4 class="font-semibold"><i class="fas fa-search"></i>Selezione Qualitativa</h4>
+                            <p>Valutiamo ogni immobile con criteri oggettivi e analisi di mercato. Accettiamo solo immobili con le caratteristiche giuste per il nostro modello.</p>
+                        </div>
+                        <div class="service-point hoverable-card">
+                            <h4 class="font-semibold"><i class="fas fa-infinity"></i>Nessun Limite ai Referral</h4>
+                            <p>Puoi proporre quanti immobili vuoi. Ogni immobile accettato genera una fee di €300 per l'agenzia. Opportunità illimitata.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Sublocazioni -->
+                <div id="subaffitto" class="service-content">
+                    <h3 class="text-2xl font-bold mb-1 text-center">CANALE 2 — Sublocazioni</h3>
+                    <p class="service-subtitle">L'Inquilino Perfetto per il Tuo Portfolio</p>
+                    <p class="text-center text-gray-700 mb-8">MoorentPm subloca immobili del tuo portfolio in affitto tradizionale. Fee standard per te, vantaggi straordinari per il proprietario.</p>
+                    <div class="grid md:grid-cols-2 gap-6 text-sm">
+                        <div class="service-point hoverable-card">
+                            <h4 class="font-semibold"><i class="fas fa-money-check-alt"></i>Pagamenti SEMPRE Puntuali</h4>
+                            <p>MoorentPm è un'azienda strutturata, non un privato. Pagamenti garantiti al 100%, mai ritardi, mai solleciti, mai morosità.</p>
+                        </div>
+                        <div class="service-point hoverable-card">
+                            <h4 class="font-semibold"><i class="fas fa-star"></i>Immobile Valorizzato Professionalmente</h4>
+                            <p>Investiamo in home staging, arredi premium, attrezzature smart. L'immobile vale significativamente di più a fine contratto.</p>
+                        </div>
+                        <div class="service-point hoverable-card">
+                            <h4 class="font-semibold"><i class="fas fa-tools"></i>Manutenzione Costante ed Eccellente</h4>
+                            <p>Standard alberghiero, non standard inquilino. Pulizia professionale continua, manutenzione preventiva, cura maniacale dei dettagli.</p>
+                        </div>
+                        <div class="service-point hoverable-card">
+                            <h4 class="font-semibold"><i class="fas fa-smile"></i>Proprietario Felice = Cliente Fidelizzato</h4>
+                            <p>Servizio premium, pagamenti garantiti, immobile valorizzato. Il proprietario sarà legato all'agenzia per sempre.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <p class="text-center text-xs text-gray-400 mt-8 animate-on-scroll fade-in-up delay-300">
+                Esploriamo insieme le opportunità di collaborazione con un'analisi preliminare gratuita e senza impegno.
+            </p>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         PERCHÉ NOI
+    ============================================================ -->
+    <section id="perche-noi" class="dark-section">
+        <div class="container-lg">
+            <h2 class="section-title animate-on-scroll fade-in-up">
+                Perché Questa Collaborazione <span class="text-primary">Ha Senso</span>
+            </h2>
+            <p class="section-subtitle animate-on-scroll fade-in-up delay-100">
+                Win-Win-Win per tutti: agenzia, proprietario e MoorentPm. Un modello di partnership equo, semplice e sostenibile.
+            </p>
+            <div class="grid md:grid-cols-2 gap-x-12 gap-y-10">
+                <div class="differentiator-item animate-on-scroll fade-in-left delay-200">
+                    <i class="differentiator-icon fas fa-coins"></i>
+                    <div>
+                        <h4 class="differentiator-title">€300 per Ogni Referral Accettato</h4>
+                        <p class="differentiator-text">Fee fissa e chiara per ogni cliente che ci porti e il cui immobile accettiamo. Trasforma un "non gestiamo affitti brevi" in €300 concreti, senza alcun lavoro aggiuntivo.</p>
+                    </div>
+                </div>
+                <div class="differentiator-item animate-on-scroll fade-in-right delay-250">
+                    <i class="differentiator-icon fas fa-search"></i>
+                    <div>
+                        <h4 class="differentiator-title">Selezione Rigorosa e Professionale</h4>
+                        <p class="differentiator-text">Non accettiamo ogni immobile: valutiamo ogni property con criteri oggettivi e analisi di mercato. Solo immobili con le giuste caratteristiche entrano nel nostro portfolio.</p>
+                    </div>
+                </div>
+                <div class="differentiator-item animate-on-scroll fade-in-left delay-300">
+                    <i class="differentiator-icon fas fa-user-check"></i>
+                    <div>
+                        <h4 class="differentiator-title">Inquilini Perfetti per Sublocazioni</h4>
+                        <p class="differentiator-text">MoorentPm = pagamenti SEMPRE puntuali, zero morosità, zero controversie. L'inquilino che ogni agenzia sogna, garantito contrattualmente.</p>
+                    </div>
+                </div>
+                <div class="differentiator-item animate-on-scroll fade-in-right delay-350">
+                    <i class="differentiator-icon fas fa-home"></i>
+                    <div>
+                        <h4 class="differentiator-title">Immobili che Crescono di Valore</h4>
+                        <p class="differentiator-text">Trattamento eccellente, manutenzione costante, valore patrimoniale aumentato. Il proprietario sarà eternamente grato all'agenzia che gliel'ha proposto.</p>
+                    </div>
+                </div>
+                <div class="differentiator-item animate-on-scroll fade-in-left delay-400">
+                    <i class="differentiator-icon fas fa-smile-beam"></i>
+                    <div>
+                        <h4 class="differentiator-title">Clienti Soddisfatti e Fidelizzati</h4>
+                        <p class="differentiator-text">Proprietari felici = relazioni forti e durature con l'agenzia. Partnership che crea valore a lungo termine per tutti gli attori coinvolti.</p>
+                    </div>
+                </div>
+                <div class="differentiator-item animate-on-scroll fade-in-right delay-450">
+                    <i class="differentiator-icon fas fa-trophy"></i>
+                    <div>
+                        <h4 class="differentiator-title">Differenziazione Competitiva</h4>
+                        <p class="differentiator-text">Offri soluzioni innovative che i competitor non hanno. Posizionati come agenzia all'avanguardia nel mercato immobiliare del Triveneto.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         RISULTATI
+    ============================================================ -->
+    <section id="risultati" style="background-color: var(--light);">
+        <div class="container-lg">
+            <h2 class="section-title animate-on-scroll fade-in-up">
+                Partnership di Successo, <span style="color: #c4796a;">Risultati Concreti</span>
+            </h2>
+            <p class="section-subtitle animate-on-scroll fade-in-up delay-100">
+                La nostra esperienza nel property management premium garantisce risultati eccellenti per proprietari e agenzie partner.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-start">
+
+                <div class="animate-on-scroll fade-in-left delay-200">
+                    <h3 class="text-2xl font-semibold mb-6 text-center md:text-left">La Nostra Track Record</h3>
+                    <div class="grid grid-cols-2 gap-5 text-center mb-8">
+                        <div class="kpi-card hoverable-card">
+                            <p class="satisfaction-score">4.8+</p>
+                            <p>Rating Ospiti su Airbnb</p>
+                        </div>
+                        <div class="kpi-card hoverable-card">
+                            <p class="satisfaction-score">8.7+</p>
+                            <p>Punteggio su Booking.com</p>
+                        </div>
+                        <div class="kpi-card hoverable-card">
+                            <p class="satisfaction-score">100%</p>
+                            <p>Pagamenti Puntuali</p>
+                        </div>
+                        <div class="kpi-card hoverable-card">
+                            <p class="satisfaction-score">0%</p>
+                            <p>Morosità su Sublocazioni</p>
+                        </div>
+                    </div>
+                    <div class="feedback-box hoverable-card">
+                        <h4 class="font-semibold text-lg">
+                            <i class="fas fa-handshake mr-2" style="color: #c4796a;"></i>
+                            Vantaggi per le Agenzie Partner
+                        </h4>
+                        <ul class="mt-3">
+                            <li>€300 garantiti per ogni referral accettato, pagati alla firma.</li>
+                            <li>Zero rischi: selezioniamo noi ogni immobile con criteri oggettivi.</li>
+                            <li>Proprietari soddisfatti e fidelizzati all'agenzia.</li>
+                            <li>Immobili sublocati sempre valorizzati e mantenuti perfettamente.</li>
+                            <li>Supporto professionale e comunicazione trasparente.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="animate-on-scroll fade-in-right delay-300">
+                    <h3 class="text-2xl font-semibold mb-6 text-center md:text-left">Il Nostro Approccio Premium</h3>
+                    <div class="custom-card hoverable-card" style="background: #fff8f6; border: 1px solid rgba(243,223,217,0.5);">
+                        <h4 class="text-xl font-semibold mb-4 text-center" style="color: #c4796a;">Selezione Qualitativa</h4>
+                        <p class="text-gray-700 mb-4">
+                            <i class="fas fa-check-circle mr-2" style="color: var(--success);"></i>
+                            <strong>Valutazione Oggettiva:</strong> Ogni immobile viene analizzato con criteri rigorosi e analisi di mercato per garantire sostenibilità economica e risultati eccellenti.
+                        </p>
+                        <p class="text-gray-700 mb-4">
+                            <i class="fas fa-star mr-2" style="color: var(--success);"></i>
+                            <strong>Standard Premium:</strong> Rating 4.8+ su Airbnb e 8.7+ su Booking.com dimostrano la qualità del nostro servizio.
+                        </p>
+                        <p class="text-gray-700 mb-4">
+                            <i class="fas fa-shield-alt mr-2" style="color: var(--success);"></i>
+                            <strong>Affidabilità Totale:</strong> 100% pagamenti puntuali sulle sublocazioni, 0% morosità. L'inquilino perfetto per il tuo portfolio.
+                        </p>
+                        <p class="text-gray-700">
+                            <i class="fas fa-rocket mr-2" style="color: var(--success);"></i>
+                            <strong>Valorizzazione Continua:</strong> Investiamo in home staging, arredi premium e manutenzione costante per aumentare il valore degli immobili.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         IMMOBILE IDEALE
+    ============================================================ -->
+    <section id="immobile-ideale" class="bg-white">
+        <div class="container-lg">
+            <h2 class="section-title animate-on-scroll fade-in-up">
+                Immobili Ideali per <span style="color: #c4796a;">Referral di Successo</span>
+            </h2>
+            <p class="section-subtitle animate-on-scroll fade-in-up delay-100">
+                Condividi con noi immobili con queste caratteristiche per massimizzare le possibilità di accettazione e garantire la fee di €300.
+            </p>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="custom-card hoverable-card animate-on-scroll fade-in-up delay-200">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-map-marker-alt text-5xl" style="color: #c4796a;"></i>
+                    </div>
+                    <h4 class="font-bold text-xl mb-3 text-center">Location Premium</h4>
+                    <ul class="text-sm text-gray-700 space-y-2">
+                        <li><i class="fas fa-check mr-2" style="color: var(--success);"></i>Zone centrali o turistiche</li>
+                        <li><i class="fas fa-check mr-2" style="color: var(--success);"></i>Vicinanza a servizi e trasporti</li>
+                        <li><i class="fas fa-check mr-2" style="color: var(--success);"></i>Area ad alta domanda verificata</li>
+                        <li><i class="fas fa-check mr-2" style="color: var(--success);"></i>Contesti residenziali di qualità</li>
+                    </ul>
+                </div>
+
+                <div class="custom-card hoverable-card animate-on-scroll fade-in-up delay-300">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-home text-5xl" style="color: #c4796a;"></i>
+                    </div>
+                    <h4 class="font-bold text-xl mb-3 text-center">Caratteristiche Immobile</h4>
+                    <ul class="text-sm text-gray-700 space-y-2">
+                        <li><i class="fas fa-check mr-2" style="color: var(--success);"></i>Buone condizioni generali</li>
+                        <li><i class="fas fa-check mr-2" style="color: var(--success);"></i>Metratura adeguata (45+ mq)</li>
+                        <li><i class="fas fa-check mr-2" style="color: var(--success);"></i>Luminosità e qualità degli spazi</li>
+                        <li><i class="fas fa-check mr-2" style="color: var(--success);"></i>Potenziale di valorizzazione</li>
+                    </ul>
+                </div>
+
+                <div class="custom-card hoverable-card animate-on-scroll fade-in-up delay-400">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-user-tie text-5xl" style="color: #c4796a;"></i>
+                    </div>
+                    <h4 class="font-bold text-xl mb-3 text-center">Proprietari Ideali</h4>
+                    <ul class="text-sm text-gray-700 space-y-2">
+                        <li><i class="fas fa-check mr-2" style="color: var(--success);"></i>Orientati al medio-lungo termine</li>
+                        <li><i class="fas fa-check mr-2" style="color: var(--success);"></i>Interesse per gestione professionale</li>
+                        <li><i class="fas fa-check mr-2" style="color: var(--success);"></i>Aperti a investimenti iniziali</li>
+                        <li><i class="fas fa-check mr-2" style="color: var(--success);"></i>Fiducia nel property management</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Processo di Valutazione -->
+            <div class="max-w-4xl mx-auto mt-14 animate-on-scroll fade-in-up delay-500">
+                <div class="custom-card" style="background: #fff8f6; border: 2px solid rgba(243,223,217,0.5);">
+                    <h3 class="text-2xl font-bold text-center mb-8">
+                        <i class="fas fa-search mr-2" style="color: #c4796a;"></i>
+                        Il Nostro Processo di Valutazione
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="eval-step">
+                            <span class="eval-step-number">1</span>
+                            <div class="eval-step-body">
+                                <h4><i class="fas fa-chart-line mr-1" style="color: #c4796a;"></i>Analisi di Mercato</h4>
+                                <p>Analizziamo i dati di mercato, verifichiamo domanda turistica, stagionalità e prezzi medi della zona per stimare il potenziale di revenue dell'immobile.</p>
+                            </div>
+                        </div>
+                        <div class="eval-step">
+                            <span class="eval-step-number">2</span>
+                            <div class="eval-step-body">
+                                <h4><i class="fas fa-balance-scale mr-1" style="color: #c4796a;"></i>Sostenibilità Economica</h4>
+                                <p>Verifichiamo la sostenibilità con analisi approfondite. Accettiamo solo immobili che rispettano i nostri standard di qualità e redditività.</p>
+                            </div>
+                        </div>
+                        <div class="eval-step">
+                            <span class="eval-step-number">3</span>
+                            <div class="eval-step-body">
+                                <h4><i class="fas fa-check-circle mr-1" style="color: #c4796a;"></i>Comunicazione Esito</h4>
+                                <p>Dopo l'analisi preliminare, comunichiamo rapidamente all'agenzia se l'immobile è idoneo. La fee è sempre fissa: <strong>€300</strong> alla firma.</p>
+                            </div>
+                        </div>
+                        <div class="eval-step">
+                            <span class="eval-step-number">4</span>
+                            <div class="eval-step-body">
+                                <h4><i class="fas fa-file-contract mr-1" style="color: #c4796a;"></i>Firma e Pagamento Fee</h4>
+                                <p>Se la valutazione è positiva, procediamo con sopralluogo e business plan. Alla firma del contratto con l'inquilino, l'agenzia riceve i suoi <strong>€300</strong>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ============================================================
+         OFFERTA / FEE STRUCTURE
+    ============================================================ -->
+    <section id="offerta" style="background-color: #f5f5f5;">
+        <div class="container-lg">
+            <h2 class="section-title animate-on-scroll fade-in-up">
+                Riepilogo <span style="color: #c4796a;">Fee Structure</span>
+            </h2>
+            <p class="section-subtitle animate-on-scroll fade-in-up delay-100">
+                Struttura di compensi chiara e trasparente per ogni tipo di collaborazione. Semplice, equo, win-win.
+            </p>
+
+            <!-- Tabella Fee -->
+            <div class="max-w-5xl mx-auto mb-12 animate-on-scroll fade-in-up delay-200">
+                <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead style="background-color: var(--accent); color: white;">
+                                <tr>
+                                    <th class="px-6 py-4 text-left text-sm font-bold">Tipo Collaborazione</th>
+                                    <th class="px-6 py-4 text-left text-sm font-bold">Fee Agenzia</th>
+                                    <th class="px-6 py-4 text-left text-sm font-bold">Quando si Paga</th>
+                                    <th class="px-6 py-4 text-left text-sm font-bold">Effort Richiesto</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                <tr class="fee-row-highlight transition-colors">
+                                    <td class="px-6 py-5">
+                                        <div class="font-semibold text-accent mb-1">Referral Gestione</div>
+                                        <div class="text-sm text-gray-500">Canale 1 — ogni immobile accettato</div>
+                                    </td>
+                                    <td class="px-6 py-5">
+                                        <div class="fee-big">€300</div>
+                                        <div class="fee-note">fee fissa, sempre uguale</div>
+                                    </td>
+                                    <td class="px-6 py-5">
+                                        <div class="text-sm font-medium text-gray-700">
+                                            <i class="fas fa-file-signature mr-1" style="color: #c4796a;"></i>
+                                            Alla firma del contratto
+                                        </div>
+                                        <div class="text-xs text-gray-400 mt-0.5">una tantum</div>
+                                    </td>
+                                    <td class="px-6 py-5">
+                                        <span class="inline-flex items-center gap-1 text-sm px-2.5 py-1 rounded-full" style="background: rgba(16,185,129,0.1); color: var(--success); font-weight:600;">
+                                            <i class="fas fa-check-circle text-xs"></i> Solo il referral
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50 transition-colors">
+                                    <td class="px-6 py-5">
+                                        <div class="font-semibold text-accent mb-1">Sublocazione</div>
+                                        <div class="text-sm text-gray-500">Canale 2 — portfolio tradizionale</div>
+                                    </td>
+                                    <td class="px-6 py-5">
+                                        <div class="text-lg font-semibold text-gray-700">Commissione standard</div>
+                                        <div class="text-xs text-gray-500">come qualsiasi contratto d'affitto</div>
+                                    </td>
+                                    <td class="px-6 py-5">
+                                        <div class="text-sm font-medium text-gray-700">
+                                            <i class="fas fa-file-contract mr-1 text-gray-400"></i>
+                                            Alla firma del contratto
+                                        </div>
+                                        <div class="text-xs text-gray-400 mt-0.5">gestione normale</div>
+                                    </td>
+                                    <td class="px-6 py-5">
+                                        <span class="inline-flex items-center gap-1 text-sm px-2.5 py-1 rounded-full" style="background: rgba(16,185,129,0.1); color: var(--success); font-weight:600;">
+                                            <i class="fas fa-check-circle text-xs"></i> Gestione normale
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Note importanti -->
+            <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-6 mt-12">
+                <div class="custom-card hoverable-card animate-on-scroll fade-in-left delay-300">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-search text-4xl" style="color: #c4796a;"></i>
+                    </div>
+                    <h4 class="font-bold text-lg mb-3 text-center">Valutazione Professionale</h4>
+                    <p class="text-sm text-gray-700 leading-relaxed">
+                        Ogni immobile viene analizzato preventivamente con <strong>criteri oggettivi e rigorosi</strong>.
+                        Non accettiamo tutto: solo proprietà con le caratteristiche giuste per il nostro modello di gestione, garantendo partnership solide e risultati eccellenti.
+                    </p>
+                </div>
+
+                <div class="custom-card hoverable-card animate-on-scroll fade-in-right delay-400">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-coins text-4xl" style="color: #c4796a;"></i>
+                    </div>
+                    <h4 class="font-bold text-lg mb-3 text-center">Fee Semplice e Trasparente</h4>
+                    <p class="text-sm text-gray-700 leading-relaxed">
+                        <strong>€300 fissi</strong> per ogni immobile accettato (Canale 1), pagati una sola volta alla firma del contratto con l'inquilino.
+                        Per le sublocazioni (Canale 2) l'agenzia incassa la sua commissione standard — nessuna fee aggiuntiva necessaria.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Comparazione inquilino -->
+            <div class="max-w-5xl mx-auto mt-16 animate-on-scroll fade-in-up delay-500">
+                <h3 class="text-2xl font-bold text-center mb-8">
+                    Inquilino Tradizionale vs <span style="color: #c4796a;">MoorentPm</span>
+                </h3>
+                <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead style="background-color: #f3f4f6;">
+                                <tr>
+                                    <th class="px-6 py-4 text-left text-sm font-bold text-gray-700">Caratteristica</th>
+                                    <th class="px-6 py-4 text-left text-sm font-bold text-gray-700">Inquilino Privato</th>
+                                    <th class="px-6 py-4 text-left text-sm font-bold" style="color: #c4796a;">Inquilino MoorentPm</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 font-semibold text-gray-700">Pagamenti</td>
+                                    <td class="px-6 py-4 text-sm">
+                                        <i class="fas fa-exclamation-triangle mr-2" style="color: var(--warning);"></i>Ritardi 35-45%<br>
+                                        <i class="fas fa-times-circle mr-2" style="color: var(--danger);"></i>Rischio morosità 12-18%
+                                    </td>
+                                    <td class="px-6 py-4 text-sm">
+                                        <i class="fas fa-check-circle mr-2" style="color: var(--success);"></i><strong>SEMPRE puntuali 100%</strong><br>
+                                        <i class="fas fa-shield-alt mr-2" style="color: var(--success);"></i><strong>Zero morosità garantita</strong>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 font-semibold text-gray-700">Trattamento Immobile</td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">
+                                        Usura standard<br>Manutenzione minima<br>Valore stabile/calante
+                                    </td>
+                                    <td class="px-6 py-4 text-sm">
+                                        <strong>Rinnovo professionale</strong><br>
+                                        <strong>Manutenzione eccellente</strong><br>
+                                        <strong>Valore AUMENTA</strong>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 font-semibold text-gray-700">Gestione Agenzia</td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">
+                                        Solleciti frequenti<br>Gestione controversie<br>Stress operativo alto
+                                    </td>
+                                    <td class="px-6 py-4 text-sm">
+                                        <strong>Zero solleciti</strong><br>
+                                        <strong>Mai controversie</strong><br>
+                                        <strong>Stress ZERO</strong>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ============================================================
+         CONTATTI
+    ============================================================ -->
+    <section id="contatti" class="dark-section">
+        <div class="container-lg">
+            <h2 class="section-title animate-on-scroll fade-in-up">
+                Iniziamo una <span class="text-primary">Partnership di Successo</span>
+            </h2>
+            <p class="section-subtitle animate-on-scroll fade-in-up delay-100">
+                Hai un immobile da referrare o un contratto di sublocazione da gestire?<br>
+                Scrivici su WhatsApp: risposta garantita entro poche ore.
+            </p>
+            <div class="text-center mt-12 animate-on-scroll fade-in-up delay-200">
+                <a href="https://wa.me/393534830386" target="_blank" rel="noopener" class="btn btn-primary text-lg">
+                    <i class="fab fa-whatsapp"></i> Contattaci su WhatsApp
+                </a>
+            </div>
+
+            <div class="footer-text text-center animate-on-scroll fade-in-up delay-400">
+                <p>MoorentPm — Partnership strategiche con agenzie immobiliari del Triveneto.</p>
+                <div class="mt-4 text-sm" style="color: #6b7280;">
+                    © 2026 MoorentPm. Tutti i diritti riservati.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
